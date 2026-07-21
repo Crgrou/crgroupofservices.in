@@ -21,6 +21,7 @@
         <a href="#about">About</a>
         <a href="#services">Services</a>
         <a href="#payment">Payment</a>
+        <a href="#service-request">Request Service</a>
         <a href="#contact">Contact</a>
     </nav>
 </header>
@@ -31,7 +32,7 @@
 
 <p>One Stop Solution for All Online Government & Digital Services</p>
 
-<a href="https://wa.me/917860899678" class="btn">
+<a href="https://wa.me/917860899678" class="btn btn-primary">
 Chat on WhatsApp
 </a>
 
@@ -56,45 +57,85 @@ Bill Payment and many more online services.
 
 <h2>Our Services</h2>
 
-<div class="service-box">GST Registration</div>
+<div class="service-box">
+<h3>GST Registration</h3>
+</div>
 
-<div class="service-box">PAN Card</div>
+<div class="service-box">
+<h3>PAN Card</h3>
+</div>
 
-<div class="service-box">Income Tax Return</div>
+<div class="service-box">
+<h3>Income Tax Return</h3>
+</div>
 
-<div class="service-box">MSME Registration</div>
+<div class="service-box">
+<h3>MSME Registration</h3>
+</div>
 
-<div class="service-box">Aadhaar Services</div>
+<div class="service-box">
+<h3>Aadhaar Services</h3>
+</div>
 
-<div class="service-box">Driving Licence</div>
+<div class="service-box">
+<h3>Driving Licence</h3>
+</div>
 
-<div class="service-box">Passport</div>
+<div class="service-box">
+<h3>Passport</h3>
+</div>
 
-<div class="service-box">Ayushman Card</div>
+<div class="service-box">
+<h3>Ayushman Card</h3>
+</div>
 
-<div class="service-box">Online Form Filling</div>
+<div class="service-box">
+<h3>Online Form Filling</h3>
+</div>
 
-<div class="service-box">Bill Payment</div>
+<div class="service-box">
+<h3>Bill Payment</h3>
+</div>
 
-<div class="service-box">Shop Act Registration</div>
+<div class="service-box">
+<h3>Shop Act Registration</h3>
+</div>
 
-<div class="service-box">Digital Signature (DSC)</div>
+<div class="service-box">
+<h3>Digital Signature (DSC)</h3>
+</div>
 
-<div class="service-box">Voter ID</div>
+<div class="service-box">
+<h3>Voter ID</h3>
+</div>
 
-<div class="service-box">Birth Certificate</div>
+<div class="service-box">
+<h3>Birth Certificate</h3>
+</div>
 
-<div class="service-box">Death Certificate</div>
+<div class="service-box">
+<h3>Death Certificate</h3>
+</div>
 
-<div class="service-box">Train Ticket Booking</div>
+<div class="service-box">
+<h3>Train Ticket Booking</h3>
+</div>
 
-<div class="service-box">Bus Ticket Booking</div>
+<div class="service-box">
+<h3>Bus Ticket Booking</h3>
+</div>
 
-<div class="service-box">Flight Ticket Booking</div>
+<div class="service-box">
+<h3>Flight Ticket Booking</h3>
+</div>
 
-<div class="service-box">Mobile Recharge</div>
+<div class="service-box">
+<h3>Mobile Recharge</h3>
+</div>
 
-<div class="service-box">Insurance Services</div>
+<div class="service-box">
+<h3>Insurance Services</h3>
+</div>
 
 </section>
 
@@ -148,6 +189,71 @@ Bill Payment and many more online services.
 <a href="https://bhim.apl.gov.in/" class="payment-btn">Pay Now</a>
 </div>
 
+</div>
+
+</section>
+
+<section id="service-request">
+
+<h2>Request a Service</h2>
+
+<p>Fill out the form below to request any of our services</p>
+
+<form id="serviceForm" class="service-form">
+
+<div class="form-group">
+<label for="name">Full Name *</label>
+<input type="text" id="name" name="name" required>
+</div>
+
+<div class="form-group">
+<label for="email">Email Address *</label>
+<input type="email" id="email" name="email" required>
+</div>
+
+<div class="form-group">
+<label for="phone">Phone Number *</label>
+<input type="tel" id="phone" name="phone" required>
+</div>
+
+<div class="form-group">
+<label for="service">Select Service *</label>
+<select id="service" name="service" required>
+<option value="">-- Select a Service --</option>
+<option value="GST Registration">GST Registration</option>
+<option value="PAN Card">PAN Card</option>
+<option value="Income Tax Return">Income Tax Return</option>
+<option value="MSME Registration">MSME Registration</option>
+<option value="Aadhaar Services">Aadhaar Services</option>
+<option value="Driving Licence">Driving Licence</option>
+<option value="Passport">Passport</option>
+<option value="Ayushman Card">Ayushman Card</option>
+<option value="Online Form Filling">Online Form Filling</option>
+<option value="Bill Payment">Bill Payment</option>
+<option value="Shop Act Registration">Shop Act Registration</option>
+<option value="Digital Signature (DSC)">Digital Signature (DSC)</option>
+<option value="Voter ID">Voter ID</option>
+<option value="Birth Certificate">Birth Certificate</option>
+<option value="Death Certificate">Death Certificate</option>
+<option value="Train Ticket Booking">Train Ticket Booking</option>
+<option value="Bus Ticket Booking">Bus Ticket Booking</option>
+<option value="Flight Ticket Booking">Flight Ticket Booking</option>
+<option value="Mobile Recharge">Mobile Recharge</option>
+<option value="Insurance Services">Insurance Services</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="description">Description/Details</label>
+<textarea id="description" name="description" rows="5"></textarea>
+</div>
+
+<button type="submit" class="btn btn-submit">Submit Request</button>
+
+</form>
+
+<div id="successMessage" class="success-message" style="display:none;">
+✓ Your service request has been received! We'll contact you soon.
 </div>
 
 </section>
