@@ -55,3 +55,73 @@ box-shadow:0 4px 10px rgba(0,0,0,.3);
 z-index:9999;
 `;
 document.body.appendChild(whatsapp);
+
+// Service Request Form Handler
+const serviceForm = document.getElementById('serviceForm');
+const successMessage = document.getElementById('successMessage');
+
+if (serviceForm) {
+  serviceForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      service: document.getElementById('service').value,
+      description: document.getElementById('description').value,
+      timestamp: new Date().toLocaleString()
+    };
+    
+    // Save to localStorage
+    let requests = JSON.parse(localStorage.getItem('serviceRequests')) || [];
+    requests.push(formData);
+    localStorage.setItem('serviceRequests', JSON.stringify(requests));
+    
+    // Show success message
+    successMessage.style.display = 'block';
+    serviceForm.reset();
+    
+    // Send to WhatsApp
+    const message = `New Service Request:\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService: ${formData.service}\nDescription: ${formData.description}`;
+    const whatsappUrl = `https://wa.me/917860899678?text=${encodeURIComponent(message)}`;
+    
+    // Hide success message after 5 seconds
+    setTimeout(() => {
+      successMessage.style.display = 'none';
+    }, 5000);
+    
+    console.log('Service Request Saved:', formData);
+  });
+}
+
+// Function to retrieve all service requests
+function getAllServiceRequests() {
+  return JSON.parse(localStorage.getItem('serviceRequests')) || [];
+}
+
+// Function to export service requests as CSV
+function exportServiceRequests() {
+  const requests = getAllServiceRequests();
+  if (requests.length === 0) {
+    alert('No service requests found!');
+    return;
+  }
+  
+  let csv = 'Name,Email,Phone,Service,Description,Timestamp\n';
+  requests.forEach(req => {
+    csv += `"${req.name}","${req.email}","${req.phone}","${req.service}","${req.description}","${req.timestamp}"\n`;
+  });
+  
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'service_requests.csv';
+  a.click();
+}
+
+// Make functions globally available
+window.getAllServiceRequests = getAllServiceRequests;
+window.exportServiceRequests = exportServiceRequests;
