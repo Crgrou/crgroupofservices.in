@@ -1,4 +1,4 @@
-// Shopping functionality
+// Enhanced Shopping functionality
 
 // Sample products data
 const products = [
@@ -8,7 +8,8 @@ const products = [
         category: "Documents",
         price: 2499,
         emoji: "📋",
-        description: "Complete GST registration documentation and filing"
+        description: "Complete GST registration documentation and filing",
+        fullDescription: "Professional GST registration service with all documentation, IEC code assistance, and government submission."
     },
     {
         id: 2,
@@ -16,7 +17,8 @@ const products = [
         category: "Documents",
         price: 1299,
         emoji: "🆔",
-        description: "Fast track PAN card application and delivery"
+        description: "Fast track PAN card application and delivery",
+        fullDescription: "Quick PAN card processing with online application and fast delivery to your doorstep."
     },
     {
         id: 3,
@@ -24,7 +26,8 @@ const products = [
         category: "Documents",
         price: 3999,
         emoji: "🛂",
-        description: "Complete passport application support"
+        description: "Complete passport application support",
+        fullDescription: "Full passport application assistance including document verification and embassy coordination."
     },
     {
         id: 4,
@@ -32,7 +35,8 @@ const products = [
         category: "Documents",
         price: 1899,
         emoji: "📊",
-        description: "Professional ITR filing and consultation"
+        description: "Professional ITR filing and consultation",
+        fullDescription: "Expert ITR filing for individuals and businesses with complete tax planning support."
     },
     {
         id: 5,
@@ -40,7 +44,8 @@ const products = [
         category: "Documents",
         price: 2199,
         emoji: "🏢",
-        description: "UDYAM registration and business setup"
+        description: "UDYAM registration and business setup",
+        fullDescription: "Complete MSME registration with UDYAM certificate and business documentation support."
     },
     {
         id: 6,
@@ -48,7 +53,8 @@ const products = [
         category: "Documents",
         price: 3299,
         emoji: "🔐",
-        description: "DSC for e-signing and digital documents"
+        description: "DSC for e-signing and digital documents",
+        fullDescription: "Class 3 Digital Signature Certificate for electronic signing and government filings."
     },
     {
         id: 7,
@@ -56,7 +62,8 @@ const products = [
         category: "Travel",
         price: 299,
         emoji: "✈️",
-        description: "Quick booking + customer support"
+        description: "Quick booking + customer support",
+        fullDescription: "Fast flight booking with 24/7 customer support and flexible cancellation options."
     },
     {
         id: 8,
@@ -64,7 +71,8 @@ const products = [
         category: "Travel",
         price: 199,
         emoji: "🚂",
-        description: "Easy rail ticket booking assistance"
+        description: "Easy rail ticket booking assistance",
+        fullDescription: "IRCTC ticket booking with seat selection and instant confirmation."
     },
     {
         id: 9,
@@ -72,7 +80,8 @@ const products = [
         category: "Travel",
         price: 1499,
         emoji: "🚌",
-        description: "10 bus journeys booking package"
+        description: "10 bus journeys booking package",
+        fullDescription: "Book 10 intercity bus trips with flexible dates and instant confirmation."
     },
     {
         id: 10,
@@ -80,7 +89,8 @@ const products = [
         category: "Insurance",
         price: 4999,
         emoji: "🏥",
-        description: "Comprehensive health coverage planning"
+        description: "Comprehensive health coverage planning",
+        fullDescription: "Customized health insurance plans with cashless treatment at network hospitals."
     },
     {
         id: 11,
@@ -88,7 +98,8 @@ const products = [
         category: "Insurance",
         price: 2999,
         emoji: "🚗",
-        description: "Professional insurance guidance and setup"
+        description: "Professional insurance guidance and setup",
+        fullDescription: "Expert vehicle insurance consultation with best premium options."
     },
     {
         id: 12,
@@ -96,7 +107,8 @@ const products = [
         category: "Insurance",
         price: 3699,
         emoji: "💼",
-        description: "Personalized life coverage plans"
+        description: "Personalized life coverage plans",
+        fullDescription: "Tailored life insurance policies based on your financial needs."
     },
     {
         id: 13,
@@ -104,7 +116,8 @@ const products = [
         category: "Utilities",
         price: 500,
         emoji: "📱",
-        description: "All network recharge options available"
+        description: "All network recharge options available",
+        fullDescription: "Prepaid and postpaid recharge for all major networks with instant activation."
     },
     {
         id: 14,
@@ -112,7 +125,8 @@ const products = [
         category: "Utilities",
         price: 99,
         emoji: "💡",
-        description: "Quick bill payment + receipt"
+        description: "Quick bill payment + receipt",
+        fullDescription: "Pay electricity bills online with instant receipt and payment confirmation."
     },
     {
         id: 15,
@@ -120,7 +134,8 @@ const products = [
         category: "Utilities",
         price: 199,
         emoji: "💧",
-        description: "Multiple utility bills in one place"
+        description: "Multiple utility bills in one place",
+        fullDescription: "Pay water, gas, and other utility bills through a single platform."
     },
     {
         id: 16,
@@ -128,7 +143,8 @@ const products = [
         category: "Documents",
         price: 1599,
         emoji: "🏥",
-        description: "Health scheme registration assistance"
+        description: "Health scheme registration assistance",
+        fullDescription: "Complete Ayushman Bharat card registration with eligibility verification and documentation."
     },
 ];
 
@@ -153,10 +169,17 @@ function setupEventListeners() {
         filterProducts();
     });
 
+    // Reset filters
+    document.getElementById('resetFilters').addEventListener('click', function() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('categoryFilter').value = '';
+        displayProducts(products);
+    });
+
     // Cart modal
-    const cartLink = document.querySelector('.cart-link');
+    const cartLink = document.getElementById('cartLink');
     const cartModal = document.getElementById('cartModal');
-    const closeBtn = document.querySelector('.close');
+    const closeButtons = document.querySelectorAll('.close');
 
     cartLink.addEventListener('click', function(e) {
         e.preventDefault();
@@ -164,29 +187,44 @@ function setupEventListeners() {
         cartModal.style.display = 'block';
     });
 
-    closeBtn.addEventListener('click', function() {
-        cartModal.style.display = 'none';
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            cartModal.style.display = 'none';
+            document.getElementById('detailsModal').style.display = 'none';
+        });
     });
 
     window.addEventListener('click', function(event) {
         if (event.target == cartModal) {
             cartModal.style.display = 'none';
         }
+        if (event.target == document.getElementById('detailsModal')) {
+            document.getElementById('detailsModal').style.display = 'none';
+        }
+    });
+
+    // Continue shopping
+    document.getElementById('continueShopping').addEventListener('click', function() {
+        cartModal.style.display = 'none';
     });
 
     // Checkout button
     document.getElementById('checkoutBtn').addEventListener('click', function() {
         if (cart.length === 0) {
-            alert('Your cart is empty!');
+            showNotification('❌ Your cart is empty!', 'error');
             return;
         }
         
         const total = calculateTotal();
-        const message = `I want to purchase items worth ₹${total}. Please confirm and provide payment options.`;
+        const cartSummary = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
+        const message = `Hello! I want to purchase: ${cartSummary}\nSubtotal: ₹${(total * 100 / 105).toFixed(2)}\nTotal with GST: ₹${total.toFixed(2)}\nPlease confirm and provide payment options.`;
         const whatsappUrl = `https://wa.me/917860899678?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
         
-        cartModal.style.display = 'none';
+        showNotification('✅ Opening WhatsApp...', 'success');
+        setTimeout(() => {
+            cartModal.style.display = 'none';
+        }, 1500);
     });
 }
 
@@ -195,9 +233,12 @@ function displayProducts(productsToDisplay) {
     productsGrid.innerHTML = '';
 
     if (productsToDisplay.length === 0) {
-        productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999;">No products found.</p>';
+        productsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #999;"><p style="font-size: 1.2rem; margin-bottom: 10px;">🔍 No products found</p><p>Try adjusting your search or filters</p></div>';
+        document.getElementById('productCount').textContent = 'Products: 0';
         return;
     }
+
+    document.getElementById('productCount').textContent = `Products: ${productsToDisplay.length}`;
 
     productsToDisplay.forEach(product => {
         const productCard = document.createElement('div');
@@ -209,13 +250,17 @@ function displayProducts(productsToDisplay) {
                 <h3 class="product-name">${product.name}</h3>
                 <p class="product-description">${product.description}</p>
                 <p class="product-price">₹${product.price}</p>
+                <p class="product-rating">⭐ 4.5 (${Math.floor(Math.random() * 100) + 10} reviews)</p>
                 <div class="product-actions">
                     <div class="quantity-selector">
                         <button class="qty-btn" onclick="decreaseQty(${product.id})">−</button>
                         <input type="number" class="qty-input" id="qty-${product.id}" value="1" min="1" max="100">
                         <button class="qty-btn" onclick="increaseQty(${product.id})">+</button>
                     </div>
+                </div>
+                <div style="display: flex; gap: 12px; margin-top: 12px;">
                     <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Add to Cart</button>
+                    <button class="view-details-btn" onclick="showProductDetails(${product.id})">Details</button>
                 </div>
             </div>
         `;
@@ -235,6 +280,36 @@ function filterProducts() {
     });
 
     displayProducts(filtered);
+}
+
+function showProductDetails(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    const detailsModal = document.getElementById('detailsModal');
+    const detailsContent = document.getElementById('productDetails');
+    
+    detailsContent.innerHTML = `
+        <div class="product-details">
+            <div class="details-image">${product.emoji}</div>
+            <div class="details-info">
+                <span class="category">${product.category}</span>
+                <h3>${product.name}</h3>
+                <div class="price">₹${product.price}</div>
+                <p class="description">${product.fullDescription}</p>
+                <div class="product-actions" style="margin-top: 25px;">
+                    <div class="quantity-selector">
+                        <button class="qty-btn" onclick="decreaseQty(${product.id})">−</button>
+                        <input type="number" class="qty-input" id="qty-${product.id}" value="1" min="1" max="100">
+                        <button class="qty-btn" onclick="increaseQty(${product.id})">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart(${product.id}); document.getElementById('detailsModal').style.display='none';">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    detailsModal.style.display = 'block';
 }
 
 function getQuantity(productId) {
@@ -286,7 +361,7 @@ function addToCart(productId) {
     }
 
     // Show confirmation
-    showNotification(`${product.name} added to cart!`);
+    showNotification(`✅ ${product.name} added to cart!`);
 }
 
 function removeFromCart(productId) {
@@ -294,7 +369,7 @@ function removeFromCart(productId) {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCount();
     displayCart();
-    showNotification('Item removed from cart');
+    showNotification('🗑️ Item removed from cart');
 }
 
 function updateCartCount() {
@@ -303,15 +378,29 @@ function updateCartCount() {
 }
 
 function calculateTotal() {
+    const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const tax = subtotal * 0.05; // 5% GST
+    return subtotal + tax;
+}
+
+function calculateSubtotal() {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+}
+
+function calculateTax() {
+    return calculateSubtotal() * 0.05;
 }
 
 function displayCart() {
     const cartItemsDiv = document.getElementById('cartItems');
+    const cartSubtotalSpan = document.getElementById('cartSubtotal');
+    const cartTaxSpan = document.getElementById('cartTax');
     const cartTotalSpan = document.getElementById('cartTotal');
 
     if (cart.length === 0) {
-        cartItemsDiv.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+        cartItemsDiv.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Your cart is empty</p><small>Add items to get started</small></div>';
+        cartSubtotalSpan.textContent = '0';
+        cartTaxSpan.textContent = '0';
         cartTotalSpan.textContent = '0';
         return;
     }
@@ -324,15 +413,21 @@ function displayCart() {
             </div>
             <div class="cart-item-qty">
                 <button class="qty-btn" onclick="updateCartQty(${item.id}, -1)">−</button>
-                <span style="margin: 0 10px; font-weight: 600;">${item.quantity}</span>
+                <span>${item.quantity}</span>
                 <button class="qty-btn" onclick="updateCartQty(${item.id}, 1)">+</button>
             </div>
-            <div style="font-weight: 600; min-width: 70px;">₹${item.price * item.quantity}</div>
+            <div style="font-weight: 700; min-width: 80px; text-align: right;">₹${(item.price * item.quantity).toFixed(2)}</div>
             <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
         </div>
     `).join('');
 
-    cartTotalSpan.textContent = calculateTotal();
+    const subtotal = calculateSubtotal();
+    const tax = calculateTax();
+    const total = calculateTotal();
+
+    cartSubtotalSpan.textContent = subtotal.toFixed(2);
+    cartTaxSpan.textContent = tax.toFixed(2);
+    cartTotalSpan.textContent = total.toFixed(2);
 }
 
 function updateCartQty(productId, change) {
@@ -345,23 +440,16 @@ function updateCartQty(productId, change) {
     }
 }
 
-function showNotification(message) {
+function showNotification(message, type = 'success') {
     const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #667eea;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 5px;
-        z-index: 10000;
-        animation: slideIn 0.3s;
-    `;
+    notification.className = 'notification';
     notification.textContent = message;
     document.body.appendChild(notification);
 
     setTimeout(() => {
-        notification.remove();
+        notification.classList.add('remove');
+        setTimeout(() => {
+            notification.remove();
+        }, 400);
     }, 3000);
 }
